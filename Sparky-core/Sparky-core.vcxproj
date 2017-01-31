@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\batchrenderer2D.cpp" />
     <ClCompile Include="src\graphics\simple2DRenderer.cpp" />
     <ClCompile Include="src\graphics\buffers\indexbuffer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="src\maths\vec4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\batchrenderer2D.h" />
     <ClInclude Include="src\graphics\renderer2d.h" />
     <ClInclude Include="src\graphics\buffers\bufferin.h" />
     <ClInclude Include="src\graphics\buffers\indexbuffer.h" />
