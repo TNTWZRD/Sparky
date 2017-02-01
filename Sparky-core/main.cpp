@@ -12,10 +12,10 @@
 
 #include "src\utils\timer.h"
 
+#include "src\graphics\layers\tilelayer.h"
+
 #include <time.h>
 #include <ctime>
-
-#define BATCH 1
 
 int main()
 {
@@ -24,46 +24,32 @@ int main()
 	using namespace maths;
 
 	Window window("Sparky!", 960, 540);
-	glClearColor(0, 0, 1, 0);
+	glClearColor(0, 0, 0, 0);
 
 	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 
-	Shader shader("src/shaders/basic.vert", "src/shaders/basic.frag");
+	Shader* s = new Shader("src/shaders/basic.vert", "src/shaders/basic.frag");
+	Shader* s2 = new Shader("src/shaders/basic.vert", "src/shaders/basic.frag");
+	Shader& shader = *s;
+	Shader& shader2 = *s2;
+
 	shader.enable();
-	shader.setUniformMat4("pr_matrix", ortho);
 	shader.setUniform2f("light_pos", vec2(8, 4.5));
+	shader2.enable();
+	shader2.setUniform2f("light_pos", vec2(8, 4.5));
 
-	std::vector<Renderable2D*> sprites;
-	
-	srand(time(NULL));
+	TileLayer layer(&shader);
+	TileLayer layer2(&shader2);
+	layer2.add(new Sprite(0, 0, 4, 4, vec4(1,0,1,1)));
 
-
-	for (float y = 0; y < 9.0f; y += 0.1)
+	for (float y = -9.0f; y < 9.0f; y += 0.2)
 	{
-		for (float x = 0; x < 16.0f; x += 0.1)
+		for (float x = -16.0f; x < 16.0f; x += 0.2)
 		{
-#if BATCH
-			sprites.push_back(new Sprite(x, y, 0.1f, 0.1f, maths::vec4(rand() % 1000 / 1000.0f, rand() % 1000 / 1000.0f, rand() % 1000 / 1000.0f, 1)));
-#else 
-			sprites.push_back(new StaticSprite(x, y, 0.1f, 0.1f, maths::vec4(rand() % 1000 / 1000.0f, rand() % 1000 / 1000.0f, rand() % 1000 / 1000.0f, 1), shader));
-#endif
+			layer.add(new Sprite(x, y, 0.2f, 0.2f, maths::vec4(rand() % 1000 / 1000.0f, rand() % 1000 / 1000.0f, rand() % 1000 / 1000.0f, 1)));
 		}
 	}
 
-	std::cout << sprites.size() << std::endl;
-
-#if BATCH
-	Sprite sprite (0, 0, 2, 2, maths::vec4(1, 0, 1, 1));
-	Sprite sprite1(2, 2, 2, 2, maths::vec4(1, 1, 1, 1));
-	Sprite sprite2(4, 4, 2, 2, maths::vec4(1, 0, 0, 1));
-	BatchRenderer2D renderer;
-
-#else
-	StaticSprite sprite(0, 0, 2, 2, maths::vec4(1, 0, 1, 1), shader);
-	StaticSprite sprite1(2, 2, 2, 2, maths::vec4(1, 1, 1, 1), shader);
-	StaticSprite sprite2(4, 4, 2, 2, maths::vec4(1, 0, 0, 1), shader);
-	Simple2DRenderer renderer;
-#endif
 
 	Timer time;
 	float seconds = 0;
@@ -75,19 +61,15 @@ int main()
 
 		double x, y;
 		window.getMousePos(x, y);
-		shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
+		shader.enable();
+		shader.setUniform2f("light_pos", vec2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
+		shader2.enable();
+		shader2.setUniform2f("light_pos", vec2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
 
-#if BATCH
-		renderer.begin();
-#endif
-		for (int i = 0; i < sprites.size(); i++)
-			renderer.submit(sprites[i]);
-#if BATCH
-		renderer.end();
-#endif
-		renderer.flush();
+		layer.render();
+		layer2.render();
+
 		window.update();
-
 		fps++;
 		if (time.elapsed() - seconds > 1.0f)
 		{
