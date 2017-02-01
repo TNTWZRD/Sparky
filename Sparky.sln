@@ -6,17 +6,26 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sparky-core", "Sparky-core\Sparky-core.vcxproj", "{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release(INLINE)|x64 = Release(INLINE)|x64
+		Release(INLINE)|x86 = Release(INLINE)|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Debug|x64.ActiveCfg = Debug|x64
-		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Debug|x64.Build.0 = Debug|x64
+		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Debug|x64.ActiveCfg = Debug|Win32
+		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Debug|x64.Build.0 = Debug|Win32
 		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Debug|x86.ActiveCfg = Debug|Win32
 		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Debug|x86.Build.0 = Debug|Win32
+		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Release(INLINE)|x64.ActiveCfg = Release(INLINE)|x64
+		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Release(INLINE)|x64.Build.0 = Release(INLINE)|x64
+		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Release(INLINE)|x86.ActiveCfg = Release(INLINE)|Win32
+		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Release(INLINE)|x86.Build.0 = Release(INLINE)|Win32
 		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Release|x64.ActiveCfg = Release|x64
 		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Release|x64.Build.0 = Release|x64
 		{7411DB73-82CC-4C5F-9F71-8D5E37A6F94B}.Release|x86.ActiveCfg = Release|Win32

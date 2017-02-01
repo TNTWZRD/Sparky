@@ -27,7 +27,7 @@ namespace sparky { namespace maths {
 
 	mat4& mat4::multiply(const mat4& other)
 	{
-		mat4 result;
+		float data[16];
 
 		for (int y = 0; y < 4; y++)
 		{
@@ -38,9 +38,10 @@ namespace sparky { namespace maths {
 				{
 					sum += elements[x + e * 4] * other.elements[e + y * 4];
 				}
-				elements[x + y * 4] = sum;
+				data[x + y * 4] = sum;
 			}	
-		}	
+		}
+		memcpy(elements, data, 16 * sizeof(float));
 
 		return *this;
 	}
